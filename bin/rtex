@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'fileutils'
+
+require File.dirname(__FILE__) << '/../lib/rtex'
+
+options = {}
+
+opts = OptionParser.new do |opts|
+  
+  opts.banner = [
+    "RTex v#{RTex::VERSION} (c) 2006-2007 Bruce Williams, Wiebe Cazemier",
+    "USAGE: rtex [OPTIONS]"
+  ].join("\n")
+  
+  opts.on_tail('-h', '--help', "Show this message") do
+    STDERR.puts opts
+    exit
+  end
+  
+  opts.on('-l LAYOUT', '--layout LAYOUT', 'Path to layout file (use <%= yield %>)') do |layout|
+    if File.exists?(layout)
+      options[:layout] = File.read(layout)
+    else
+      STDERR.puts "Layout file not found: #{layout}"
+      exit 1
+    end
+  end
+  
+  opts.on('-o OUTFILE', '--output OUTFILE', "Output to file (defaults to STDOUT)") do |path|
+    options[:outfile] = path
+  end
+  
+  opts.on('-f FILTER', '--filter FILTER', "Filter input (supported: textile)", "(Wraps in a basic `article' document; use --layout to customize)") do |filter|
+    options[:filter] = filter
+  end
+  
+  opts.on('--no-pdf', "Don't generate PDF (just output TeX)") do
+    options[:tex] = true
+  end
+  
+  opts.on('-i PATH', '--install PATH', "Install as plugin into Rails/Merb app at PATH") do |path|
+    unless Dir[plugins = File.join(path, 'vendor/plugins')].any?
+      STDERR.puts "Could not find application at #{path}"
+      exit 1
+    end
+    plugin_path = File.join(plugins, 'rtex')
+    FileUtils.cp_r(File.dirname(__FILE__) << '/..', plugin_path)
+    STDERR.puts "Installed at #{plugin_path}"
+    exit
+  end
+  
+end
+opts.parse!(ARGV)
+
+if options[:filter] && !options[:layout]
+  STDERR.puts "Warning: Using default `article' layout (see --help on '--layout')"
+  options[:layout] = RTex.basic_layout
+end
+
+document = RTex::Document.new(ARGF.read, options)
+document.to_pdf(nil) do |filename|
+  if options[:outfile]
+    FileUtils.move filename, options[:outfile]
+  else
+    STDOUT.print File.read(filename)
+  end
+end

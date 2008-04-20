@@ -54,10 +54,25 @@ module RTex
     private
     #######
     
+    def generate_pdf_from(input, &file_handler)
+      Tempdir.open do |tempdir|
+        prepare input
+        if generating?
+          generate!
+          verify!
+        end
+        if file_handler
+          yield full_path_in(tempdir.path)
+        else
+          result_as_string
+        end
+      end
+    end
+    
     # Handle preprocessing, if any
-    def generate!(path) #:nodoc:
-      if !preprocessor || preprocessor[path]
-        unless generation_of path
+    def generate! #:nodoc:
+      if !preprocessor || preprocessor[source_file]
+        unless generation_of source_file
           raise GenerationError, "Could not generate PDF using pdflatex (is it in PATH?)"      
         end
       end
@@ -67,36 +82,42 @@ module RTex
       `pdflatex --interaction=nonstopmode '#{path}'`
     end
     
-    def generate_pdf_from(input, &file_handler)
-      source_file = 'document.tex'
-      log_file = 'document.log'
-      result_file = 'document.pdf'
-      full_path = nil
-      Tempdir.open do |tempdir|
-        # 1. Write everything into the temporary file...      
-        File.open(source_file, 'wb') { |f| f.puts input }
-        if @options[:tex]
-          result_file = source_file
-        else
-          # 2. Generate the PDF
-          generate!(source_file)
-          # 3. Check for the pdf, and read it if needed
-          unless File.exists?(result_file)
-            if File.exists?(log_file)
-              log = File.read(log_file)
-              raise GenerationError, "Could not find result PDF #{result_file} after generation\n---LOG---\n#{log}\n---SOURCE---\n#{input}"
-            else
-              raise GenerationError, "Could not find result PDF #{result_file} after generation.\nNo log file found."
-            end
-          end
-        end
-        full_path = File.expand_path(File.join(tempdir.path, result_file))
-        if file_handler
-          yield full_path
-        else
-          File.open(full_path, 'rb') { |f| f.read }
-        end
+    def source_file
+      @source_file ||= file(:tex)
+    end
+    
+    def log_file
+      @log_file ||= file(:log)
+    end
+    
+    def result_file
+      @result_file ||= file(@options[:tex] ? :tex : :pdf)
+    end
+    
+    def file(extension)
+      "document.#{extension}"
+    end
+    
+    def generating?
+      !@options[:tex]
+    end
+    
+    def verify!
+      unless File.exists?(result_file)
+        raise GenerationError, "Could not find result PDF #{result_file} after generation.\nCheck #{File.expand_path(log_file)}"
       end
+    end
+    
+    def prepare(input)
+      File.open(source_file, 'wb') { |f| f.puts input }
+    end
+    
+    def result_as_string
+      File.open(result_file, 'rb') { |f| f.read }
+    end
+    
+    def full_path_in(directory)
+      File.expand_path(File.join(directory, result_file))
     end
     
   end

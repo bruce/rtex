@@ -5,24 +5,16 @@ module RTex
   
   class Tempdir
         
-    class << self
-      
-      def open
-        tempdir = new
-        FileUtils.mkdir_p tempdir.path
-        result = nil
-        begin
-          result = Dir.chdir(tempdir.path) do
-            yield tempdir
-          end
-          tempdir.remove!
-        ensure
-          # If an error occurs, we *always* remove it
-          tempdir.remove!
-        end
-        result
+    def self.open
+      tempdir = new
+      FileUtils.mkdir_p tempdir.path
+      result = Dir.chdir(tempdir.path) do
+        yield tempdir
       end
-      
+      # We don't remove the temporary directory when exceptions occur,
+      # so that the source of the exception can be dubbed (logfile kept)
+      tempdir.remove!
+      result
     end
     
     def initialize(basename='rtex')

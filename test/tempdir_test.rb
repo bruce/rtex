@@ -48,16 +48,16 @@ context "Creating a temporary directory" do
     assert_equal :last, :last
   end
   
-  specify "removes the directory after use if an exception occurs" do
+  specify "does not remove the directory after use if an exception occurs" do
     path = nil
     assert_raises RuntimeError do
       RTex::Tempdir.open do
         path = Dir.pwd
-        assert File.exists?(path)
+        assert File.directory?(path)
         raise "Test exception!"
       end
     end
-    assert !File.exists?(path)
+    assert File.directory?(path)
   end
   
 end

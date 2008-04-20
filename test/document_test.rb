@@ -10,6 +10,10 @@ context "Document Generation" do
     assert document(:first).respond_to?(:to_pdf)
   end
   
+  specify "can escape characters" do
+    assert_equal '\textbackslash{}\textasciitilde{}', RTex::Document.escape('\~')
+  end
+  
   specify "documents can use a to_pdf block to move a file to a relative path" do
     begin
       path = File.expand_path(File.dirname(__FILE__) << '/tmp/this_is_relative_to_pwd.pdf')

@@ -1,12 +1,17 @@
 require 'erb'
 require 'ostruct'
 require 'tmpdir'
-require File.dirname(__FILE__) << '/tempdir'
+
+require 'escaping'
+require 'tempdir'
+
 
 module RTex
   
   class Document
     
+    extend Escaping
+        
     class FilterError < ::StandardError; end
     class GenerationError < ::StandardError; end
     class ExecutableNotFoundError < ::StandardError; end
@@ -22,7 +27,7 @@ module RTex
         :tempdir => Dir.tmpdir
       }
     end
-    
+        
     def initialize(content, options={})
       @options = self.class.options.merge(options)
       if @options[:processed]

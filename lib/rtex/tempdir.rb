@@ -1,4 +1,3 @@
-require 'tmpdir'
 require 'fileutils'
 
 module RTex
@@ -23,7 +22,7 @@ module RTex
     end
     
     def path
-      @path ||= File.expand_path(File.join(Dir.tmpdir, "#{@basename}-#{uuid}"))
+      @path ||= File.expand_path(File.join(RTex::Document.options[:tempdir], 'rtex', "#{@basename}-#{uuid}"))
     end
     
     def remove!

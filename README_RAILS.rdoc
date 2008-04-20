@@ -4,3 +4,42 @@
 
   sudo gem install rtex
   rtex --install /path/to/rails/app
+  
+== Dependencies
+
+* Rails >= 2.0.1
+  
+== Usage
+
+Create files with +rtex+ or +pdf.rtex+ extensions (eg, +index.rtex+, +index.pdf.rtex+) using standard LaTeX markup.
+
+* Layouts are supported, eg: +application.pdf.rtex+
+* Partials are supported, eg: +_item.pdf.rtex+
+
+=== Example
+
+With the following:
+
+  # app/controllers/items_controller.rb
+  def index
+    @items = Item.find(:all)
+  end
+  
+  # app/views/items/index.pdf.rtex
+  \section*{Items}
+  \begin{itemize}
+  <%= render :partial => @items %>
+  \end{itemize}
+  
+  # app/views/items/_item.pdf.rtex
+  \item <%=l item.name %> \\
+  
+  # app/layouts/application.pdf.rtex
+  \documentclass[12pt]{article}
+  \begin{document}
+  <%= yield %>
+  \end{document}
+
+If you hit +http://the.server.url/items.pdf+, you end up with a nice PDF listing of items.
+
+Obviously a simplistic example.

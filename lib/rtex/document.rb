@@ -1,5 +1,6 @@
 require 'erb'
 require 'ostruct'
+require 'tmpdir'
 require File.dirname(__FILE__) << '/tempdir'
 
 module RTex
@@ -8,15 +9,27 @@ module RTex
     
     class FilterError < ::StandardError; end
     class GenerationError < ::StandardError; end
+    class ExecutableNotFoundError < ::StandardError; end
     
-    attr_reader :preprocessor
+    def self.options
+      @options ||= {
+        :preprocessor => 'latex',
+        :preprocess => false,
+        :processor => 'pdflatex',
+        # Option redirection for shell output (eg, set to  '> /dev/null 2>&1' )
+        :shell_redirect => nil,
+        # Temporary Directory
+        :tempdir => Dir.tmpdir
+      }
+    end
+    
     def initialize(content, options={})
-      if options[:processed]
+      @options = self.class.options.merge(options)
+      if @options[:processed]
         @source = content
       else
         @erb = ERB.new(content)
       end
-      @options = options
     end
     
     def source(binding=nil)
@@ -43,22 +56,38 @@ module RTex
     end
     
     def to_pdf(binding=nil, &file_handler)
-      generate_pdf_from(source(binding), &file_handler)
+      process_pdf_from(source(binding), &file_handler)
     end
     
-    def preprocess(&block)
-      @preprocessor = block
+    def processor
+      @processor ||= check_path_for @options[:processor]
+    end
+    
+    def preprocessor
+      @preprocessor ||= check_path_for @options[:preprocessor]
+    end
+    
+    def system_path
+      ENV['PATH']
     end
         
     #######
     private
     #######
     
-    def generate_pdf_from(input, &file_handler)
+    def check_path_for(command)
+      unless FileTest.executable?(command) || system_path.split(":").any?{ |path| FileTest.executable?(File.join(path, command))}
+        raise ExecutableNotFoundError, command
+      end
+      command
+    end
+    
+    def process_pdf_from(input, &file_handler)
       Tempdir.open do |tempdir|
         prepare input
         if generating?
-          generate!
+          preprocess! if preprocessing?
+          process!
           verify!
         end
         if file_handler
@@ -69,19 +98,22 @@ module RTex
       end
     end
     
-    # Handle preprocessing, if any
-    def generate! #:nodoc:
-      if !preprocessor || preprocessor[source_file]
-        unless generation_of source_file
-          raise GenerationError, "Could not generate PDF using pdflatex (is it in PATH?)"      
-        end
+    def process! #:nodoc:
+      unless `#{processor} --interaction=nonstopmode '#{source_file}' #{@options[:shell_redirect]}`
+        raise GenerationError, "Could not generate PDF using #{processor}"      
       end
     end
     
-    def generation_of(path)
-      `pdflatex --interaction=nonstopmode '#{path}'`
+    def preprocess!
+      unless `#{preprocessor} --interaction=nonstopmode '#{source_file}' #{@options[:shell_redirect]}`
+        raise GenerationError, "Could not preprocess using #{preprocessor}"      
+      end
     end
     
+    def preprocessing?
+      @options[:preprocess]
+    end
+        
     def source_file
       @source_file ||= file(:tex)
     end

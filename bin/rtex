@@ -48,7 +48,9 @@ opts = OptionParser.new do |opts|
     end
     plugin_path = File.join(plugins, 'rtex')
     FileUtils.cp_r(File.dirname(__FILE__) << '/..', plugin_path)
-    FileUtils.rm_rf(File.join(plugin_path, 'bin'))
+    %w(Rakefile Manifest.txt bin tasks).each do |prune|
+      FileUtils.rm_rf(File.join(plugin_path, prune)) rescue nil
+    end
     STDERR.puts "Installed at #{plugin_path}"
     exit
   end

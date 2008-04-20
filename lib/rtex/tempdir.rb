@@ -4,8 +4,8 @@ module RTex
   
   class Tempdir
         
-    def self.open
-      tempdir = new
+    def self.open(parent_path=RTex::Document.options[:tempdir])
+      tempdir = new(parent_path)
       FileUtils.mkdir_p tempdir.path
       result = Dir.chdir(tempdir.path) do
         yield tempdir
@@ -16,13 +16,14 @@ module RTex
       result
     end
     
-    def initialize(basename='rtex')
+    def initialize(parent_path, basename='rtex')
+      @parent_path = parent_path
       @basename = basename
       @removed = false
     end
     
     def path
-      @path ||= File.expand_path(File.join(RTex::Document.options[:tempdir], 'rtex', "#{@basename}-#{uuid}"))
+      @path ||= File.expand_path(File.join(@parent_path, 'rtex', "#{@basename}-#{uuid}"))
     end
     
     def remove!

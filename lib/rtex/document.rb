@@ -83,7 +83,7 @@ module RTex
     end
     
     def process_pdf_from(input, &file_handler)
-      Tempdir.open do |tempdir|
+      Tempdir.open(@options[:tempdir]) do |tempdir|
         prepare input
         if generating?
           preprocess! if preprocessing?

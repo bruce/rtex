@@ -1,2 +1,6 @@
 = RTex Rails plugin
 
+== Installation
+
+  sudo gem install rtex
+  rtex --install /path/to/rails/app

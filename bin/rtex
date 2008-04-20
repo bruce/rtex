@@ -10,7 +10,7 @@ options = {}
 opts = OptionParser.new do |opts|
   
   opts.banner = [
-    "RTex v#{RTex::VERSION} (c) 2006-2007 Bruce Williams, Wiebe Cazemier",
+    "RTex v#{RTex::Version::STRING} (c) 2006-2007 Bruce Williams, Wiebe Cazemier",
     "USAGE: rtex [OPTIONS]"
   ].join("\n")
   
@@ -60,9 +60,10 @@ if options[:filter] && !options[:layout]
 end
 
 document = RTex::Document.new(ARGF.read, options)
+location = File.expand_path(options[:outfile]) rescue nil
 document.to_pdf(nil) do |filename|
-  if options[:outfile]
-    FileUtils.move filename, options[:outfile]
+  if location
+    FileUtils.move filename, location
   else
     STDOUT.print File.read(filename)
   end

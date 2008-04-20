@@ -1,31 +1,26 @@
-basepath = File.dirname(__FILE__) << '/rtex'
+$:.unshift(File.dirname(__FILE__) << '/rtex')
 
-require basepath << '/document'
+require 'document'
+require 'version'
 
 module RTex
+    
+  def self.framework(name)
+    require File.dirname(__FILE__) << "/rtex/framework/#{name}"
+    framework = ::RTex::Framework.const_get(name.to_s.capitalize)
+    framework.setup
+  end
   
-  VERSION = '2.0.0'
+  def self.basic_layout #:nodoc:
+    "\\documentclass[12pt]{article}\n\\begin{document}\n<%= yield %>\n\\end{document}"
+  end
   
-  class << self
-    
-    def framework(name)
-      require File.dirname(__FILE__) << "/rtex/framework/#{name}"
-      framework = ::RTex::Framework.const_get(name.to_s.capitalize)
-      framework.setup
-    end
-    
-    def basic_layout #:nodoc:
-      "\\documentclass[12pt]{article}\n\\begin{document}\n<%= yield %>\n\\end{document}"
-    end
-    
-    def filter(name, &block)
-      filters[name.to_s] = block
-    end
-    
-    def filters #:nodoc:
-      @filters ||= {}
-    end
-    
+  def self.filter(name, &block)
+    filters[name.to_s] = block
+  end
+  
+  def self.filters #:nodoc:
+    @filters ||= {}
   end
   
   filter :textile do |source|

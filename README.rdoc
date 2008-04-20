@@ -5,10 +5,6 @@ Project homepage: http://rtex.rubyforge.org
 Please file comments and bug reports at http://rubyforge.org/projects/rtex
 (in the Forum and the Tracker, respectively).
 
-== License
-
-See LICENSE
-
 == Dependencies
 
 * pdflatex executable, available in modern teTeX distributions

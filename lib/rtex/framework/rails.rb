@@ -29,7 +29,7 @@ module RTex
               serve_file = Tempfile.new('rtex-pdf')
               FileUtils.mv filename, serve_file.path
               send_file serve_file.path,
-                :disposition => "inline",
+                :disposition => (options[:disposition] rescue nil) || 'inline',
                 :url_based_filename => true,
                 :filename => (options[:filename] rescue nil),
                 :type => "application/pdf",

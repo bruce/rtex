@@ -32,7 +32,8 @@ opts = OptionParser.new do |opts|
     options[:outfile] = path
   end
   
-  opts.on('-f FILTER', '--filter FILTER', "Filter input (supported: textile)", "(Wraps in a basic `article' document; use --layout to customize)") do |filter|
+  filters = RTex.filters.keys.map { |k| k.to_s }.sort.join(', ')
+  opts.on('-f FILTER', '--filter FILTER', "Filter input (supported: #{filters})", "(Wraps in a basic `article' document; use --layout to customize)") do |filter|
     options[:filter] = filter
   end
   
@@ -47,6 +48,7 @@ opts = OptionParser.new do |opts|
     end
     plugin_path = File.join(plugins, 'rtex')
     FileUtils.cp_r(File.dirname(__FILE__) << '/..', plugin_path)
+    FileUtils.rm_rf(File.join(plugin_path, 'bin'))
     STDERR.puts "Installed at #{plugin_path}"
     exit
   end

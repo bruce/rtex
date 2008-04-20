@@ -77,7 +77,7 @@ module RTex
     
     def check_path_for(command)
       unless FileTest.executable?(command) || system_path.split(":").any?{ |path| FileTest.executable?(File.join(path, command))}
-        raise ExecutableNotFoundError, command
+        raise ExecutableNotFoundError, command
       end
       command
     end

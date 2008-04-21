@@ -1,2 +1,2 @@
 require 'rtex'
-RTex.framework :rails
+RTeX.framework :rails

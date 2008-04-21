@@ -1,4 +1,4 @@
-= RTex Rails plugin
+= RTeX Rails plugin
 
 == Installation
 

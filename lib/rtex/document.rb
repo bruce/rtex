@@ -6,7 +6,7 @@ require 'escaping'
 require 'tempdir'
 
 
-module RTex
+module RTeX
   
   class Document
     
@@ -45,7 +45,7 @@ module RTex
     
     def filter(text)
       return text unless @options[:filter]
-      if (process = RTex.filters[@options[:filter]])
+      if (process = RTeX.filters[@options[:filter]])
         process[text]
       else
         raise FilterError, "No `#{@options[:filter]}' filter"

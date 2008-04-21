@@ -16,7 +16,7 @@ class Test::Unit::TestCase
   def document(name, options={})
     name = name.kind_of?(Symbol) ? "#{name}.tex.erb" : name
     template = File.read(File.dirname(__FILE__) << "/fixtures/#{name}")
-    RTex::Document.new(template, options)
+    RTeX::Document.new(template, options)
   end
 
 end

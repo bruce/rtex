@@ -1,4 +1,4 @@
-module RTex
+module RTeX
   
   module Escaping
     

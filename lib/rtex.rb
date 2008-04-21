@@ -3,11 +3,11 @@ $:.unshift(File.dirname(__FILE__) << '/rtex')
 require 'document'
 require 'version'
 
-module RTex
+module RTeX
     
   def self.framework(name)
     require File.dirname(__FILE__) << "/rtex/framework/#{name}"
-    framework = ::RTex::Framework.const_get(name.to_s.capitalize)
+    framework = ::RTeX::Framework.const_get(name.to_s.capitalize)
     framework.setup
   end
   

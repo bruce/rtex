@@ -15,6 +15,6 @@ PROJ.test_opts = []
 PROJ.description = "LaTeX preprocessor for PDF generation; Rails plugin"
 PROJ.summary = PROJ.description
 
-PROJ.version = RTex::Version::STRING
+PROJ.version = RTeX::Version::STRING
 
 task 'gem:package' => 'manifest:assert'

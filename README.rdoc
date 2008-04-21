@@ -1,4 +1,4 @@
-= RTex: TeX/PDF Generation for Ruby
+= RTeX: TeX/PDF Generation for Ruby
 
 Project homepage: http://rtex.rubyforge.org
 

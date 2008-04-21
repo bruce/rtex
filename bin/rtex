@@ -10,7 +10,7 @@ options = {}
 opts = OptionParser.new do |opts|
   
   opts.banner = [
-    "RTex v#{RTex::Version::STRING} (c) 2006-2007 Bruce Williams, Wiebe Cazemier",
+    "RTeX v#{RTeX::Version::STRING} (c) 2006-2007 Bruce Williams, Wiebe Cazemier",
     "USAGE: rtex [OPTIONS]"
   ].join("\n")
   
@@ -32,7 +32,7 @@ opts = OptionParser.new do |opts|
     options[:outfile] = path
   end
   
-  filters = RTex.filters.keys.map { |k| k.to_s }.sort.join(', ')
+  filters = RTeX.filters.keys.map { |k| k.to_s }.sort.join(', ')
   opts.on('-f FILTER', '--filter FILTER', "Filter input (supported: #{filters})", "(Wraps in a basic `article' document; use --layout to customize)") do |filter|
     options[:filter] = filter
   end
@@ -60,10 +60,10 @@ opts.parse!(ARGV)
 
 if options[:filter] && !options[:layout]
   STDERR.puts "Warning: Using default `article' layout (see --help on '--layout')"
-  options[:layout] = RTex.basic_layout
+  options[:layout] = RTeX.basic_layout
 end
 
-document = RTex::Document.new(ARGF.read, options)
+document = RTeX::Document.new(ARGF.read, options)
 location = File.expand_path(options[:outfile]) rescue nil
 document.to_pdf(nil) do |filename|
   if location

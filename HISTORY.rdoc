@@ -1,6 +1,6 @@
 2008-04-20
 
-Released RTex v1.99.0 as a Rubygem, with a standalone executable for PDF generation
+Released RTeX v1.99.0 as a Rubygem, with a standalone executable for PDF generation
 and support for plugin installation from the executable.
 
 This release requires Rails >= 2.0.1

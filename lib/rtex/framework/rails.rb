@@ -1,11 +1,11 @@
 require 'tempfile'
 
-module RTex
+module RTeX
   module Framework    
     module Rails
       
       def self.setup
-        RTex::Document.options[:tempdir] = File.expand_path(File.join(RAILS_ROOT, 'tmp'))
+        RTeX::Document.options[:tempdir] = File.expand_path(File.join(RAILS_ROOT, 'tmp'))
         ActionView::Base.register_template_handler(:rtex, Template)  
         ActionController::Base.send(:include, ControllerMethods)
         ActionView::Base.send(:include, HelperMethods)
@@ -27,7 +27,7 @@ module RTex
           result = render_without_rtex(options, *args, &block)
           if result.is_a?(String) && @template.template_format == :pdf
             options ||= {}
-            ::RTex::Document.new(result, options.merge(:processed => true)).to_pdf do |filename|
+            ::RTeX::Document.new(result, options.merge(:processed => true)).to_pdf do |filename|
               serve_file = Tempfile.new('rtex-pdf')
               FileUtils.mv filename, serve_file.path
               send_file serve_file.path,
@@ -46,7 +46,7 @@ module RTex
       
       module HelperMethods
         def latex_escape(s)
-          RTex::Document.escape(s)
+          RTeX::Document.escape(s)
         end
         alias :l :latex_escape
       end

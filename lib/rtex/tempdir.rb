@@ -1,10 +1,10 @@
 require 'fileutils'
 
-module RTex
+module RTeX
   
   class Tempdir
         
-    def self.open(parent_path=RTex::Document.options[:tempdir])
+    def self.open(parent_path=RTeX::Document.options[:tempdir])
       tempdir = new(parent_path)
       FileUtils.mkdir_p tempdir.path
       result = Dir.chdir(tempdir.path) do

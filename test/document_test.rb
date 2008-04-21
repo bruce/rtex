@@ -11,7 +11,7 @@ context "Document Generation" do
   end
   
   specify "can escape characters" do
-    assert_equal '\textbackslash{}\textasciitilde{}', RTex::Document.escape('\~')
+    assert_equal '\textbackslash{}\textasciitilde{}', RTeX::Document.escape('\~')
   end
   
   specify "documents can use a to_pdf block to move a file to a relative path" do

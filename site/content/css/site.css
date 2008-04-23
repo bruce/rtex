@@ -16,12 +16,16 @@ color:
 ---
 
 body {
+  margin: 0;
   font-family: Verdana, "Bitstream Vera Sans", sans-serif;
 }
 
 /* Headings
  * --------------------------------------------------------------------- */
-h1,h2,h3,h4,h5,h6 { color: <%= @page.color['header'] %>; }
+#header, h1,h2,h3,h4,h5,h6 {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: <%= @page.color['header'] %>;
+}
 
 /* Text Elements
  * --------------------------------------------------------------------- */
@@ -29,14 +33,58 @@ a                 { color: <%= @page.color['link'] %>; }
 a:hover           { color: <%= @page.color['link-hover'] %>; }
 blockquote        { color: <%= @page.color['blockquote'] %>; }
 
-pre {
-  background: <%= @page.color['box-bg'] %>;
-  border:     1px solid <%= @page.color['border'] %>;
+a img { border: 0; }
+dt { font-weight: normal; }
+#license {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: none;
+  border: 0;
 }
+
+#legacy {
+  font-size: 0.9em;
+  background: #ffffcc;
+  padding: 0;
+  text-align: center;
+  border-bottom: 1px #FFF5CC solid;
+  margin-bottom: 1em;
+}
+
+#legacy p {
+  padding: 4px;
+  margin: 0;
+}
+
+pre {
+  font-family: monospace;
+  background: <%= @page.color['box-bg'] %>;
+  padding: 1em;
+  font-size: 1.1em;
+}
+
+em { background: none; }
 
 hr {
   background: <%= @page.color['highlight'] %>;
   color:      <%= @page.color['highlight'] %>;
+}
+
+#menu {
+  padding: 1em;
+  height: 100%;
+  font-size: 1.1em;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+#release { height: 20px; padding: 0 0 0 1em; background: #e6e6e6; }
+#release * {
+  line-height: 20px;
+  vertical-align: middle;
+}
+#release dt {
+  
+  float: left;
+  margin-right: 1em;
 }
 
 /* Tables

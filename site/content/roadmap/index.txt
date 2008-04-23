@@ -1,0 +1,15 @@
+---
+title: Development Roadmap
+extension: html
+filter:
+  - erb
+  - textile
+---
+
+Here are some basic guidelines on the list of features and target releases.
+
+* Support for merb: 2.1
+* Support for sinatra: 2.1
+* Add queuing/offload support for asynchronous processing/notification: ?
+
+Have more ideas?  "Contact":/contact us.

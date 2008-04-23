@@ -1,0 +1,90 @@
+---
+title: RTeX as a Rails plugin
+extension: html
+position: 2
+filter:
+  - erb
+  - textile
+---
+
+RTeX can be used as a "Template Handler," similar to "HAML":http://haml.hamptoncatlin.com/ or "Markaby":http://markaby.rubyforge.org/, but with PDFs being output.
+
+_Please note that much of this information is also available within @README_RAILS.rdoc@ inside the RTeX gem (and plugin, once installed into an app)._
+
+h2. Rails Version Dependency
+
+* >= 2.0.1
+  
+h2. Usage
+
+Create files @pdf.rtex@ extensions (eg, @index.pdf.rtex@) using standard LaTeX markup.
+
+* Layouts are supported, eg: @application.pdf.rtex@
+* Partials are supported, eg: @_item.pdf.rtex@
+
+For information on learning LaTeX, see the related "FAQ entry":/faq/#latex.
+
+h3. Example
+
+With the following:
+
+h4. app/controllers/items_controller.rb
+
+<pre>
+<notextile>
+  def index
+    @items = Item.find(:all)
+  end
+</notextile>
+</pre>
+
+h4. app/views/items/index.pdf.rtex
+
+<pre>
+<notextile>
+  \section*{Items}
+  \begin{itemize}
+    &lt;%= render :partial => @items %&gt;
+  \end{itemize}
+</notextile> 
+</pre>
+
+h4. app/views/items/_item.pdf.rtex
+
+<pre>
+<notextile>
+  \item &lt;%=l item.name %&gt; \\
+</notextile>
+</pre>
+
+h4. app/layouts/application.pdf.rtex
+
+<pre>
+<notextile>
+  \documentclass[12pt]{article}
+  \begin{document}
+    &lt;%= yield %&gt;
+  \end{document}
+</notextile>
+</pre>
+
+If you hit @http://the.server.url/items.pdf@, you end up with a nice PDF listing of items.
+
+_Note: This documentation "needs":/contribute/#docs significantly more complex/complete examples_
+
+h3. Customizing Options
+
+Note you can set certain options for RTeX by passing additional options to @render@.  Here is a short list:
+
+<dl>
+  <dt>@:filename@</dt><dd>The name of the PDF the user will be prompted to download (otherwise it uses a filename based on the URL)</dd>
+  <dt>@:preprocess@ and @:preprocessor@</dt><dd>Whether to run the raw source through a preprocessor, and the executable to use (for generating TOCs, etc).  Defaults are @false@ and @'latex'@, respectively.</dd>
+  <dt>@:processor@</dt><dd>The executable used for final generation (default: @'pdflatex'@); note this must currently produce a PDF file.</dd>
+  <dt>@:shell_redirect@</dt><dd>Additional string to be tacked onto system calls, generally used to redirect STDERR to keep logs clean, ie @'> /dev/null 2>&1'@) (default @nil@)</dd>
+  <dt>@:tmpdir@</dt><dd>The temporary directory to use (default @RAILS_ROOT/tmp@)
+</dl>  
+
+
+
+
+

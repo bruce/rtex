@@ -1,0 +1,15 @@
+---
+title: Contact Us
+extension: html
+filter:
+- textile
+---
+
+
+h2. Version 2.0 Branch
+
+This is the Rails 2 compatible branch, includes the standalone @rtex@ executable, and is maintained by "Bruce Williams":http://codefluency.com (github: "bruce":http://github.com/bruce, email: _bruce at codefluency dot com_).
+
+h2. Version 1.0 Branch (Rails 1 compatible)
+
+This is the Rails 1 compatible branch and is maintained by Wiebe Cazemier (@contact info pending@).

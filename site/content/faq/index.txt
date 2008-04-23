@@ -1,0 +1,59 @@
+---
+title: Frequently Asked Questions
+extension: html
+filter:
+  - erb
+  - textile
+---
+
+h2. What is RTeX?
+
+RTeX is a Ruby library (and web framework plugin) used to generate PDF documents on-the-fly using the "LaTeX typesetting system":http://www.latex-project.org/.
+
+h2. Is this a Rails plugin?
+
+Yes. No. Well, kinda.
+
+RTeX is a general-purpose Ruby library that _just happens_ to also act as Rails plugin.  In the future it's intended to be used out-of-the-box with other frameworks as well.  You can see the "Development Roadmap":/roadmap for some details on planned support.
+
+For details on how to install this _kinda_ Rails plugin into your app, see the "associated Manual page":/manual/install.html#rails.
+
+h2. Why _isn't_ this _just_ a Rails plugin?
+
+Because there's more to Ruby than Rails, and dependency resolution is a Good Thing.  Rails 2.1 is set to support gem plugins by default, so installation should be even easier "in the future":/roadmap.
+
+h2. Why not use PDF::Writer, or _Some Other Library_
+
+PDF::Writer is a great library, and in many cases may be exactly what you need.
+
+Where RTeX really shines is when you have to do more advanced layout or typesetting that would be too tedious or error-prone to do manually in PDF::Writer.
+
+RTeX is simple Ruby wrapper on top of the very robust LaTeX project, which has been in development for over 20 years and is used for professional publishing the world-over.  This is a complex wheel that has been long [and well] implemented; all RTeX does is allow you to use it more easily from Ruby and as a filter (in standalone-mode).
+
+h2(#latex). Isn't LaTeX hard to learn?
+
+Not really; just think of it as a markup language.  While there are certainly some specialized areas (mathematical formulas, references, graphics layout, etc), the basic set of commands is easy to learn in a sitting.
+
+I'd recommend reading the _single-page_ "introduction by Mike Unwalla":http://www.techscribe.co.uk/ta/latex-introduction.pdf first, and then moving on to the "other guides":http://www.latex-project.org/guides/ that the LaTeX project provides.  You'll pick it up!
+
+h2. What are RTeX's dependencies?
+
+Ruby 1.8, Rubygems, and a "LaTeX":http://www.latex-project.org/ distribution including the @pdflatex@ executable.  Rails is obviously a dependency if attempting to use it as a plugin.
+
+h2. What if the documents I want to generate are too large to generate on-demand?
+
+Built-in support for this is being looked at as possibility for a "future release":/roadmap.  In the meantime, the @rtex@ standalone executable can be happily used outside of Rails to process a backlog of documents... but at the moment you'll need to handle the queue processing yourself.
+
+Keep in mind LaTeX processes fairly lengthy documents well within the limits of a normal request (certainly faster than PDF::Writer). YMMV.
+
+h2. How do I request a feature or submit a bug?
+
+Feel free to "contact":/contact the maintainers.
+
+h2. I've fixed a bug or added an enhancement, how do I submit it?
+
+Please contribute through "normal channels":/contribute if possible.
+
+h2. What if I have a different question?
+
+See the "contact":/contact page and pass it along!

@@ -34,7 +34,7 @@ module RTeX
     def self.[](major, minor, tiny)
       new(major, minor, tiny)
     end
-
+    
     attr_reader :major, :minor, :tiny
 
     # Create a new Version object with the given components.
@@ -66,12 +66,14 @@ module RTeX
     MAJOR = 1
     MINOR = 99
     TINY  = 0
+    
+    DESCRIPTION = '2.0 Preview 1' 
 
     # The current version as a Version instance
     CURRENT = new(MAJOR, MINOR, TINY)
     # The current version as a String
     STRING = CURRENT.to_s
-    
+        
   end
   
 end

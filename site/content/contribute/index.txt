@@ -1,0 +1,38 @@
+---
+title: Contribute to RTeX
+extension: html
+filter:
+  - erb
+  - textile
+---
+
+Like any open source project, RTeX depends on the participation of the community to keep it up to date, relevant, and as usable as possible.
+
+h2. Where?
+
+The "RTeX source":http://github.com/bruce/rtex is hosted on "GitHub":http://github.com.  Please contribute using GitHub if possible.
+
+h2. How to submit changes
+
+Here's the different ways you can send us changes (in descending order of desirability):
+
+* Fork the project in GitHub and send a pull request
+* Clone the project somewhere else, and "ask us":/contact to pull your changes from your publically accessible URL
+* Send us a git patch
+* Send us a manual patch (please note originating commit) if you don't use git
+* Send us an email detailing your changes
+* Scribble vague changes on a napkin and send COD
+
+h2. Get them accepted
+
+To get your changes accepted as fast as possible, the following really help:
+
+* Including a good reason for the change
+* Including good tests (failing before, passing after)
+* Making the code as backwards-compatible as possible
+* Using _generally accepted_ Ruby code conventions (yes, we know this is subjective)
+* Including good documentation
+
+<a id='docs' name='docs'></a>
+Note we _do_ accept documentation-only changes (even to this website, stored in @site/@ in the source!).
+

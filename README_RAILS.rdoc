@@ -11,7 +11,7 @@
   
 == Usage
 
-Create files with +rtex+ or +pdf.rtex+ extensions (eg, +index.rtex+, +index.pdf.rtex+) using standard LaTeX markup.
+Create files +pdf.rtex+ extensions (eg, +index.pdf.rtex+) using standard LaTeX markup.
 
 * Layouts are supported, eg: +application.pdf.rtex+
 * Partials are supported, eg: +_item.pdf.rtex+

@@ -1,0 +1,26 @@
+---
+title: Installing RTeX
+extension: html
+position: 1
+filter:
+  - erb
+  - textile
+---
+
+h2(#gem). Installing the RTeX Rubygem
+
+The easiest (and recommended) way to install RTeX is by using "Rubygems":http://rubygems.org.
+
+  sudo gem install rtex
+  
+The standalone executable, @rtex@, should not be available.  For information on using the standalone executable, see the "RTeX Executable":/manual/rtex_executable page.
+  
+h2(#rails). Installing the Rails plugin
+
+If you'd like to use RTeX as a Rails template handler, install it with:
+
+  rtex --install /path/to/your/app
+  
+It's also possible to unpack the entire gem to @vendor/plugins/rtex@, but it's not recommended.
+
+For information on how to use RTeX from within your Rails application, see the "Rails page":/manual/rails.html.

@@ -1,15 +1,13 @@
 ---
-title: RTeX as a Rails plugin
+title: Using RTeX as a Rails plugin
 extension: html
-position: 2
+position: 3
 filter:
   - erb
   - textile
 ---
 
-RTeX can be used as a "Template Handler," similar to "HAML":http://haml.hamptoncatlin.com/ or "Markaby":http://markaby.rubyforge.org/, but with PDFs being output.
-
-_Please note that much of this information is also available within @README_RAILS.rdoc@ inside the RTeX gem (and plugin, once installed into an app)._
+RTeX can be used as a "Template Handler," similar to "HAML":http://haml.hamptoncatlin.com/ or "Markaby":http://markaby.rubyforge.org/, but generating PDFs.
 
 h2. Rails Version Dependency
 
@@ -30,43 +28,38 @@ With the following:
 
 h4. app/controllers/items_controller.rb
 
-<pre>
-<notextile>
+<% uv :lang => 'ruby', :theme => 'dawn' do %>
   def index
     @items = Item.find(:all)
   end
-</notextile>
-</pre>
+<% end %>
 
 h4. app/views/items/index.pdf.rtex
 
-<pre>
-<notextile>
+<% uv :lang => 'latex' do %>
   \section*{Items}
   \begin{itemize}
-    &lt;%= render :partial => @items %&gt;
+    <quote-erb><%= render :partial => @items %></quote-erb>
   \end{itemize}
-</notextile> 
-</pre>
+<% end %>
 
 h4. app/views/items/_item.pdf.rtex
 
-<pre>
-<notextile>
-  \item &lt;%=l item.name %&gt; \\
-</notextile>
-</pre>
+<% uv :lang => 'latex' do %>
+  \item <quote-erb><%=l item.name %></quote-erb> \\
+  
+<% end %>
+
+Note the @l@ (or @latex_escape@) helper used above.  It escapes LaTeX command sequences (similar to how @h@ escapes HTML in normal Rails views).
 
 h4. app/layouts/application.pdf.rtex
 
-<pre>
-<notextile>
+<% uv :lang => 'latex' do %>
   \documentclass[12pt]{article}
   \begin{document}
-    &lt;%= yield %&gt;
+    <quote-erb><%= yield %></quote-erb>
   \end{document}
-</notextile>
-</pre>
+<% end %>
 
 If you hit @http://the.server.url/items.pdf@, you end up with a nice PDF listing of items.
 
@@ -82,7 +75,16 @@ Note you can set certain options for RTeX by passing additional options to @rend
   <dt>@:processor@</dt><dd>The executable used for final generation (default: @'pdflatex'@); note this must currently produce a PDF file.</dd>
   <dt>@:shell_redirect@</dt><dd>Additional string to be tacked onto system calls, generally used to redirect STDERR to keep logs clean, ie @'> /dev/null 2>&1'@) (default @nil@)</dd>
   <dt>@:tmpdir@</dt><dd>The temporary directory to use (default @RAILS_ROOT/tmp@)
-</dl>  
+</dl> 
+
+h4. Example
+
+<% uv :lang => 'ruby' do %>
+  def index
+    @items = Item.find(:all)
+    render :filename => 'item-listing.pdf'
+  end
+<% end %>
 
 
 

@@ -8,8 +8,11 @@ filter:
 
 Here are some basic guidelines on the list of features and target releases.
 
-* Support for merb: 2.1
-* Support for sinatra: 2.1
-* Add queuing/offload support for asynchronous processing/notification: ?
+| *Feature* | *Target Release* |
+| Loading of custom filters by @rtex@ executable | 2.1 |
+| Access to LaTeX filters from plugins | 2.1 |
+| "Merb":http://merbivore.com plugin support | 2.2 |
+| "Sinatra":http://sinatrarb.com plugin support | 2.2 |
+| Built-in Queuing/Offload for asynchronous processing | TBD |
 
 Have more ideas?  "Contact":/contact us.

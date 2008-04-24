@@ -5,11 +5,6 @@ filter:
 - textile
 ---
 
-
-h2. Version 2.0 Branch
-
-This is the Rails 2 compatible branch, includes the standalone @rtex@ executable, and is maintained by "Bruce Williams":http://codefluency.com (github: "bruce":http://github.com/bruce, email: _bruce at codefluency dot com_).
-
-h2. Version 1.0 Branch (Rails 1 compatible)
-
-This is the Rails 1 compatible branch and is maintained by Wiebe Cazemier (@contact info pending@).
+| *Branch* | *Details* | *Maintainer* | *Contact* |
+| v2 | Supports Rails 2 | "Bruce Williams":http://codefluency.com | GitHub: "bruce":http://github.com/bruce, E-Mail: _bruce at codefluency dot com_ |
+| v1 | Supports Rails 1 | "Wiebe Cazemier":http://www.halfgaar.net | E-Mail: _wiebe at halfgaar dot net_ |

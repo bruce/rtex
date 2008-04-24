@@ -1,0 +1,61 @@
+---
+title: Using the `rtex' Executable
+extension: html
+position: 2
+filter:
+  - erb
+  - textile
+---
+
+RTeX includes an executable, @rtex@ that is automatically installed along with the Rubygem.
+
+h2. Basic Usage
+
+Basic help information is available using the @--help@ option:
+
+  rtex --help
+  USAGE: rtex [OPTIONS]
+    -l, --layout LAYOUT    Path to layout file (use &lt;%= yield %&gt;)
+    -o, --output OUTFILE   Output to file (defaults to STDOUT)
+    -f, --filter FILTER    Filter input (supported: textile)
+                           (Wraps in a basic `article' document; use --layout to customize)
+        --no-pdf           Don't generate PDF (just output TeX)
+    -i, --install PATH     Install as plugin into Rails app at PATH
+    -h, --help             Show this message
+    
+h2. Quick Examples
+
+h3. Generate a quick PDF from Textile content
+
+   rtex -o output.pdf -f textile input.textile
+   
+You could also use it as a filter.
+
+  cat input.textile | rtex -f textile > output.pdf
+   
+h3. Converting Textile content to PDF with a custom layout
+
+In @pretty.tex.erb@ (you can name this whatever you'd like) 
+
+<% uv :lang => 'latex' do %>
+  \documentstyle[11pt]{article}
+  \begin{document}
+  \title{My Pretty Stationary}
+  \author{Jon Johnston\\
+    Nameless, Inc.}
+  \maketitle
+  <quote-erb><%= yield %></quote-erb>
+  \end{document}
+<% end %>
+
+Then, the command:
+
+  rtex -o output.pdf -l pretty.tex.erb -t textile input.pdf
+  
+Again, you can use it as a filter
+
+  cat input.textile | rtex -f textile -l pretty.erb > output.pdf
+  
+h3. Creating your own filters
+
+More documentation needed, please "contribute":/contribute.

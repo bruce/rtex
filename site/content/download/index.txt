@@ -20,7 +20,7 @@ Unstable code is available on the RTeX project's "GitHub page":http://github.com
 
 h2. License
 
-Use it, change it, charge for it, give credit (more details below).
+RTeX is released under the MIT License.  Portions of RTeX found in @vendor/@ are redistributed for dependency purposes and include their own copyright and licensing information.
 
 <pre id='license'>
 (The MIT License)

@@ -41,7 +41,7 @@ opts = OptionParser.new do |opts|
     options[:tex] = true
   end
   
-  opts.on('-i PATH', '--install PATH', "Install as plugin into Rails/Merb app at PATH") do |path|
+  opts.on('-i PATH', '--install PATH', "Install as plugin into Rails app at PATH") do |path|
     unless Dir[plugins = File.join(path, 'vendor/plugins')].any?
       STDERR.puts "Could not find application at #{path}"
       exit 1

@@ -7,13 +7,21 @@ filter:
   - textile
 ---
 
+h2(#latex). Installing LaTeX
+
+First, you'll need LaTeX.  I recommend "the official site":http://www.latex-project.org/ftp.html for more details.
+
+h3. Configuration
+
+You'll need to make sure @pdflatex@ and @latex@ are available in your @PATH@ environment variable (or equivalent).  If using RTeX "as a Rails plugin":/manual/rails.html, make sure they're in @PATH@ for the Rails process owner.
+
 h2(#gem). Installing the RTeX Rubygem
 
 The easiest (and recommended) way to install RTeX is by using "Rubygems":http://rubygems.org.
 
   sudo gem install rtex
   
-The standalone executable, @rtex@, should not be available.  For information on using the standalone executable, see the "RTeX Executable":/manual/rtex_executable page.
+The standalone executable, @rtex@, should not be available.  For information on using the standalone executable, see the "RTeX Executable":/manual/executable.html page.
   
 h2(#rails). Installing the Rails plugin
 

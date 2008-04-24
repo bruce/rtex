@@ -1,4 +1,6 @@
 ---
+title: Home Page
+homepage: true
 filter:
   - erb
   - textile
@@ -7,4 +9,6 @@ h2. Welcome
 
 RTeX is a Ruby library (and web framework plugin) used to generate PDF documents on-the-fly using the "LaTeX typesetting system":http://www.latex-project.org/.
 
-RTeX is maintained by Bruce Williams (creator, maintaining the v2, Rails 2 compatible branch) and Wiebe Cazemier (maintaining the v1, Rails 1 compatible branch).  See the "contact":/contact page to reach them.
+Get started with the "Manual":/manual (it's still a bit short, but it's something)!
+
+RTeX is maintained by Bruce Williams (creator, maintaining the v2 branch) and Wiebe Cazemier (maintaining the v1 branch).  See the "Development Roadmap":/roadmap and "Contribution":/contribution pages if you're interested in tracking development, and feel free to "contact":/contact us if you have any questions.

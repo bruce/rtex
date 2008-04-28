@@ -9,6 +9,7 @@ filter:
 Here are some basic guidelines on the list of features and target releases.
 
 | *Feature* | *Target Release* |
+| _API documentation_ | 2.0 |
 | Loading of custom filters by @rtex@ executable | 2.1 |
 | Access to LaTeX filters from plugins | 2.1 |
 | "Merb":http://merbivore.com plugin support | 2.2 |

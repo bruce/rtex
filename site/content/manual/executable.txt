@@ -50,7 +50,7 @@ In @pretty.tex.erb@ (you can name this whatever you'd like)
 
 Then, the command:
 
-  rtex -o output.pdf -l pretty.tex.erb -t textile input.pdf
+  rtex -o output.pdf -l pretty.tex.erb -t textile input.textile
   
 Again, you can use it as a filter
 

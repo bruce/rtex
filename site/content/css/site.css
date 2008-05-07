@@ -68,7 +68,7 @@ pre.dawn span.EmbeddedSource {
 
 #content dl dt { font-weight: normal; background: #e6e6e6; padding: 4px; margin-top: 0.5em; margin-bottom: 0.25em; }
 
-<% %w(contact contribute download faq manual roadmap).each do |type| %>
+<% %w(contact contribute download faq manual roadmap api).each do |type| %>
 .<%= type %> { background: url(/images/icons/<%= type %>.png) center left no-repeat; }
 <% end %>
 

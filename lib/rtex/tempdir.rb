@@ -2,7 +2,7 @@ require 'fileutils'
 
 module RTeX
   
-  class Tempdir
+  class Tempdir #:nodoc:
         
     def self.open(parent_path=RTeX::Document.options[:tempdir])
       tempdir = new(parent_path)

@@ -16,12 +16,17 @@ module RTeX
     class GenerationError < ::StandardError; end
     class ExecutableNotFoundError < ::StandardError; end
     
+    # Default options
+    # [+:preprocess+] Are we preprocessing? Default is +false+
+    # [+:preprocessor+] Executable to use during preprocessing (generating TOCs, etc). Default is +latex+
+    # [+:shell_redirect+] Option redirection for shell output (eg, +"> /dev/null 2>&1"+ ). Default is +nil+.
+    # [+:tmpdir+] Location of temporary directory (default: +Dir.tmpdir+)
     def self.options
       @options ||= {
         :preprocessor => 'latex',
         :preprocess => false,
         :processor => 'pdflatex',
-        # Option redirection for shell output (eg, set to  '> /dev/null 2>&1' )
+        # 
         :shell_redirect => nil,
         # Temporary Directory
         :tempdir => Dir.tmpdir
@@ -37,13 +42,15 @@ module RTeX
       end
     end
     
-    def source(binding=nil)
+    # Get the source for the entire 
+    def source(binding=nil) #:nodoc:
       @source ||= wrap_in_layout do
         filter @erb.result(binding)
       end
     end
     
-    def filter(text)
+    # Process through defined filter
+    def filter(text) #:nodoc:
       return text unless @options[:filter]
       if (process = RTeX.filters[@options[:filter]])
         process[text]
@@ -52,7 +59,8 @@ module RTeX
       end
     end
     
-    def wrap_in_layout
+    # Wrap content in optional layout
+    def wrap_in_layout #:nodoc:
       if @options[:layout]
         ERB.new(@options[:layout]).result(binding)
       else
@@ -60,19 +68,23 @@ module RTeX
       end
     end
     
+    # Generate PDF from 
+    # call-seq:
+    #   to_pdf # => PDF in a String
+    #   to_pdf { |filename| ... }
     def to_pdf(binding=nil, &file_handler)
       process_pdf_from(source(binding), &file_handler)
     end
     
-    def processor
+    def processor #:nodoc:
       @processor ||= check_path_for @options[:processor]
     end
     
-    def preprocessor
+    def preprocessor #:nodoc:
       @preprocessor ||= check_path_for @options[:preprocessor]
     end
     
-    def system_path
+    def system_path #:nodoc:
       ENV['PATH']
     end
         
@@ -80,6 +92,7 @@ module RTeX
     private
     #######
     
+    # Verify existence of executable in search path
     def check_path_for(command)
       unless FileTest.executable?(command) || system_path.split(":").any?{ |path| FileTest.executable?(File.join(path, command))}
         raise ExecutableNotFoundError, command
@@ -87,6 +100,7 @@ module RTeX
       command
     end
     
+    # Basic processing
     def process_pdf_from(input, &file_handler)
       Tempdir.open(@options[:tempdir]) do |tempdir|
         prepare input
@@ -103,7 +117,7 @@ module RTeX
       end
     end
     
-    def process! #:nodoc:
+    def process!
       unless `#{processor} --interaction=nonstopmode '#{source_file}' #{@options[:shell_redirect]}`
         raise GenerationError, "Could not generate PDF using #{processor}"      
       end

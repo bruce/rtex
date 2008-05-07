@@ -63,12 +63,10 @@ module RTeX
       [@major, @minor, @tiny]
     end
 
-    MAJOR = 1
-    MINOR = 99
+    MAJOR = 2
+    MINOR = 0
     TINY  = 0
     
-    DESCRIPTION = '2.0 Preview 1' 
-
     # The current version as a Version instance
     CURRENT = new(MAJOR, MINOR, TINY)
     # The current version as a String

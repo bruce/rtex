@@ -1,9 +1,8 @@
 = RTeX: TeX/PDF Generation for Ruby
 
-Project homepage: http://rtex.rubyforge.org
+Project homepage (FAQ, manual, documentation, contact info): http://rtex.rubyforge.org
 
-Please file comments and bug reports at http://rubyforge.org/projects/rtex
-(in the Forum and the Tracker, respectively).
+Source repository at: http://github.com/bruce/rtex
 
 == Dependencies
 

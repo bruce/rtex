@@ -1,8 +1,8 @@
 require 'tempfile'
 
 module RTeX
-  module Framework    
-    module Rails
+  module Framework #:nodoc:   
+    module Rails #:nodoc:
       
       def self.setup
         RTeX::Document.options[:tempdir] = File.expand_path(File.join(RAILS_ROOT, 'tmp'))

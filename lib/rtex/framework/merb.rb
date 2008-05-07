@@ -1,8 +1,8 @@
 module RTeX
   
-  module Framework
+  module Framework #:nodoc:
     
-    module Merb
+    module Merb #:nodoc:
       
       # TODO
       

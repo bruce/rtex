@@ -54,7 +54,7 @@ Then, the command:
   
 Again, you can use it as a filter
 
-  cat input.textile | rtex -f textile -l pretty.erb > output.pdf
+  cat input.textile | rtex -f textile -l pretty.tex.erb > output.pdf
   
 h3. Creating your own filters
 

@@ -12,6 +12,7 @@ lib/rtex/framework/merb.rb
 lib/rtex/framework/rails.rb
 lib/rtex/tempdir.rb
 lib/rtex/version.rb
+rails/init.rb
 tasks/doc.rake
 tasks/gem.rake
 tasks/manifest.rake
@@ -26,8 +27,5 @@ test/fixtures/fragment.tex.erb
 test/fixtures/text.textile
 test/tempdir_test.rb
 test/test_helper.rb
-test/tmp/rtex-071EE944-B2FA-4A3B-9764-1B5143833EB7/document.tex
-test/tmp/rtex-592F93A7-6198-4B00-B638-33855344A29B/document.tex
-test/tmp/rtex-96736595-5175-4602-9DC1-ABA096CC0E3D/document.tex
 vendor/instiki/LICENSE
 vendor/instiki/redcloth_for_tex.rb

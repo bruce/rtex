@@ -27,8 +27,12 @@ h2(#rails). Installing the Rails plugin
 
 If you'd like to use RTeX as a Rails template handler, install it with:
 
-  rtex --install /path/to/your/app
+Rails 2.0.X, 2.1 in vendor/plugins:
+
+  rtex --install /path/to/rails/app
   
-It's also possible to unpack the entire gem to @vendor/plugins/rtex@, but it's not recommended.
+Or, as a Rails 2.1 gem dependency, just add the following
+to your @config/environment.rb@:
+  config.gem 'rtex'  
 
 For information on how to use RTeX from within your Rails application, see the "Rails page":/manual/rails.html.

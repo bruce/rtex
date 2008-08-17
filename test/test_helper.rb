@@ -1,9 +1,12 @@
 require 'test/unit'
 
-require 'rubygems' rescue nil
-require 'test/spec'
-require 'flexmock'
-require 'flexmock/test_unit'
+require 'rubygems'
+begin
+  require 'shoulda'
+  require 'flexmock/test_unit'
+rescue LoadError
+  abort "the `Shoulda' and `flexmock' gems are required for testing"
+end
 
 require File.dirname(__FILE__) << '/../lib/rtex'
 

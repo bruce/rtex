@@ -1,23 +1,21 @@
+require 'rubygems'
+require 'echoe'
+
 require File.dirname(__FILE__) << "/lib/rtex/version"
 
-load 'tasks/setup.rb'
+Echoe.new 'rtex' do |p|
+  p.version = RTeX::Version::STRING
+  p.author = ['Bruce Williams', 'Wiebe Cazemier']
+  p.email  = 'bruce@codefluency.com'
+  p.project = 'rtex'
+  p.summary = "LaTeX preprocessor for PDF generation; Rails plugin"
+  p.url = "http://rtex.rubyforge.org"
+  p.include_rakefile = true
+  p.development_dependencies = %w(Shoulda echoe)
+  p.rcov_options = '--exclude gems --exclude version.rb --sort coverage --text-summary --html -o coverage'
+  p.ignore_pattern = /^(pkg|doc|site)|\.svn|CVS|\.bzr|\.DS|\.git/
+end
 
-PROJ.name = 'rtex'
-PROJ.authors = ['Bruce Williams', 'Wiebe Cazemier']
-PROJ.email = ['bruce@codefluency.com']
-PROJ.url = 'http://rtex.rubyforge.org'
-PROJ.rubyforge_name = 'rtex'
-
-PROJ.libs = %w[]
-PROJ.ruby_opts = []
-PROJ.test_opts = []
-
-PROJ.rdoc_main = 'README.rdoc'
-PROJ.rdoc_include.push 'README.rdoc', 'README_RAILS.rdoc'
-
-PROJ.description = "LaTeX preprocessor for PDF generation; Rails plugin"
-PROJ.summary = PROJ.description
-
-PROJ.version = RTeX::Version::STRING
-
-task 'gem:package' => 'manifest:assert'
+task :coverage do
+  system "open coverage/index.html" if PLATFORM['darwin']
+end

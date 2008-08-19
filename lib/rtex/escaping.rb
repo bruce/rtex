@@ -12,13 +12,13 @@ module RTeX
     # List of replacements
     def replacements
       @replacements ||= [
+        [/([{}])/,    '\\\\\1'],
         [/\\/,        '\textbackslash{}'],
         [/\^/,        '\textasciicircum{}'],
         [/~/,         '\textasciitilde{}'],
         [/\|/,        '\textbar{}'],
         [/\</,        '\textless{}'],
         [/\>/,        '\textgreater{}'],
-        [/([{}])/,    '\\\\\1'],
         [/([_$&%#])/, '\\\\\1']
       ]
     end

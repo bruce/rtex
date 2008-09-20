@@ -25,6 +25,9 @@ module RTeX
           if defined?(@view)
             @view.template_format = :pdf
           end
+          # Tag for RTeX
+          # TODO: Move options into TemplateHandler from Controller
+          #       (need to handle send_file)
           def @view.rendered_with_rtex
             true
           end

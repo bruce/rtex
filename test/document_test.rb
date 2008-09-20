@@ -11,11 +11,23 @@ class DocumentTest < Test::Unit::TestCase
     should "have a to_pdf method" do
       assert document(:first).respond_to?(:to_pdf)
     end
-  
-    should "escape characters" do
-      assert_equal '\textbackslash{}\textasciitilde{}', RTeX::Document.escape('\~')
+    
+    context "when escaping" do
+      setup do
+        @obj = Object.new
+        def @obj.to_s
+          '\~'
+        end
+        @escaped = '\textbackslash{}\textasciitilde{}'
+      end
+      should "escape character" do
+        assert_equal @escaped, RTeX::Document.escape(@obj.to_s)
+      end
+      should "convert argument to string before attempting escape" do        
+        assert_equal @escaped, RTeX::Document.escape(@obj)
+      end
     end
-  
+    
     should "use a to_pdf block to move a file to a relative path" do
       begin
         path = File.expand_path(File.dirname(__FILE__) << '/tmp/this_is_relative_to_pwd.pdf')

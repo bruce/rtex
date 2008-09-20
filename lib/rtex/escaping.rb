@@ -4,7 +4,7 @@ module RTeX
     
     # Escape text using +replacements+
     def escape(text)
-      replacements.inject(text) do |corpus, (pattern, replacement)|
+      replacements.inject(text.to_s) do |corpus, (pattern, replacement)|
         corpus.gsub(pattern, replacement)
       end
     end

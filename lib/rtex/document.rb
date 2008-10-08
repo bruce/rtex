@@ -5,7 +5,6 @@ require 'tmpdir'
 require 'escaping'
 require 'tempdir'
 
-
 module RTeX
   
   class Document

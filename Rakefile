@@ -14,6 +14,7 @@ Echoe.new 'rtex' do |p|
   p.development_dependencies = %w(Shoulda echoe)
   p.rcov_options = '--exclude gems --exclude version.rb --sort coverage --text-summary --html -o coverage'
   p.ignore_pattern = /^(pkg|doc|site)|\.svn|CVS|\.bzr|\.DS|\.git/
+  p.rubygems_version = nil
 end
 
 task :coverage do

@@ -53,6 +53,6 @@ With the following:
     <%= yield %>
   \end{document}
 
-If you hit @http://the.server.url/items.pdf@, you end up with a nice PDF listing of items.
+If you hit @/items.pdf@, you end up with a nice PDF listing of items.
 
 Obviously a simplistic example.

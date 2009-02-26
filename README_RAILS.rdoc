@@ -8,7 +8,7 @@ Rails 2.0.X, 2.1+ in vendor/plugins (not recommended):
   rtex --install /path/to/rails/app
   
 Or, as a Rails 2.1+ gem dependency, just add the following
-to your <tt>config/environment.rb</tt>:
+to your config/environment.rb:
   config.gem 'rtex'
   
 == Dependencies
@@ -17,10 +17,10 @@ to your <tt>config/environment.rb</tt>:
   
 == Usage
 
-Create files +pdf.rtex+ extensions (eg, +index.pdf.rtex+) using standard LaTeX markup.
+Create files pdf.rtex extensions (eg, index.pdf.rtex) using standard LaTeX markup.
 
-* Layouts are supported, eg: +application.pdf.rtex+
-* Partials are supported, eg: +_item.pdf.rtex+
+* Layouts are supported, eg: application.pdf.rtex
+* Partials are supported, eg: _item.pdf.rtex
 
 === Example
 
@@ -53,6 +53,6 @@ With the following:
     <%= yield %>
   \end{document}
 
-If you hit @/items.pdf@, you end up with a nice PDF listing of items.
+If you hit /items.pdf, you end up with a nice PDF listing of items.
 
 Obviously a simplistic example.

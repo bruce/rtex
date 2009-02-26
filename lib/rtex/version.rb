@@ -64,8 +64,8 @@ module RTeX
     end
 
     MAJOR = 2
-    MINOR = 0
-    TINY  = 5
+    MINOR = 1
+    TINY  = 0
     
     # The current version as a Version instance
     CURRENT = new(MAJOR, MINOR, TINY)

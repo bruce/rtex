@@ -26,15 +26,22 @@ Create files +pdf.rtex+ extensions (eg, +index.pdf.rtex+) using standard LaTeX m
 
 With the following:
 
+  # In config/initializers/mime_types.rb (or environment.rb in older Rails)
+  Mime::Type.register "application/pdf", :pdf
+
   # app/controllers/items_controller.rb
   def index
     @items = Item.find(:all)
+    respond_to do |format|
+      format.html # We support the normal HTML view as well
+      format.pdf
+    end
   end
   
   # app/views/items/index.pdf.rtex
   \section*{Items}
   \begin{itemize}
-  <%= render :partial => @items %>
+    <%= render :partial => @items %>
   \end{itemize}
   
   # app/views/items/_item.pdf.rtex
@@ -43,7 +50,7 @@ With the following:
   # app/layouts/application.pdf.rtex
   \documentclass[12pt]{article}
   \begin{document}
-  <%= yield %>
+    <%= yield %>
   \end{document}
 
 If you hit +http://the.server.url/items.pdf+, you end up with a nice PDF listing of items.

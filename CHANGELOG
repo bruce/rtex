@@ -1,11 +1,20 @@
+v2.1.0
+
+  Merge in rails-2.2.2 branch, modify to make sure Prawn isn't trampled and
+  2.3.0 is supported.
+  Simplify tagging of templates for later processing (+ ensure it works
+  with compiled templates).
+  Update README_RAILS 
+
 v2.0.5
 
-  Fix issue with Echoe being ultra-sensitive on RubyGems versions (v2.0.4 was RubyGems 1.2 only,
-  and 1.3 just came out)
+  Fix issue with Echoe being ultra-sensitive on RubyGems versions (v2.0.4
+  was RubyGems 1.2 only, and 1.3 just came out)
   
 v2.0.4
 
-  Support for TeX escaping (via l()) calling to_s on the argument.  This should handle nils.
+  Support for TeX escaping (via l()) calling to_s on the argument.
+  This should handle nils.
 
 v2.0.3
 

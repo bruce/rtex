@@ -1,13 +1,13 @@
-= RTeX Rails plugin
+= RTeX for Rails
 
 == Installation
 
   sudo gem install rtex
   
-Rails 2.0.X, 2.1 in vendor/plugins:
+Rails 2.0.X, 2.1+ in vendor/plugins (not recommended):
   rtex --install /path/to/rails/app
   
-Or, as a Rails 2.1 gem dependency, just add the following
+Or, as a Rails 2.1+ gem dependency, just add the following
 to your <tt>config/environment.rb</tt>:
   config.gem 'rtex'
   
@@ -53,6 +53,6 @@ With the following:
     <%= yield %>
   \end{document}
 
-If you hit +http://the.server.url/items.pdf+, you end up with a nice PDF listing of items.
+If you hit @http://the.server.url/items.pdf@, you end up with a nice PDF listing of items.
 
 Obviously a simplistic example.

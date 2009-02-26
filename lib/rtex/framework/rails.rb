@@ -22,7 +22,7 @@ module RTeX
           # Support Rails render API before:
           #   commit d2ccb852d4e1f6f1b01e43f32213053ae3bef408
           #   Date:   Fri Jul 18 16:00:20 2008 -0500
-          if defined?(@view)
+          if @view
             @view.template_format = :pdf
           end
           # Tag for RTeX

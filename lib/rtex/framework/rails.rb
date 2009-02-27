@@ -33,6 +33,7 @@ module RTeX
         def render_with_rtex(options=nil, *args, &block)
           result = render_without_rtex(options, *args, &block)
           if result.is_a?(String) && Thread.current[:_rendering_rtex]
+            Thread.current[:_rendering_rtex] = false
             options ||= {}
             ::RTeX::Document.new(result, options.merge(:processed => true)).to_pdf do |filename|
               serve_file = Tempfile.new('rtex-pdf')

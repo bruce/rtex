@@ -46,6 +46,8 @@ module RTeX
                 :length => File.size(serve_file.path)
               serve_file.close
             end
+          else
+            result
           end
           
         end

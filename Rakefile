@@ -1,22 +1,53 @@
 require 'rubygems'
-require 'echoe'
+require 'rake'
 
-require File.dirname(__FILE__) << "/lib/rtex/version"
-
-Echoe.new 'rtex' do |p|
-  p.version = RTeX::Version::STRING
-  p.author = ['Bruce Williams', 'Wiebe Cazemier']
-  p.email  = 'bruce@codefluency.com'
-  p.project = 'rtex'
-  p.summary = "LaTeX preprocessor for PDF generation; Rails plugin"
-  p.url = "http://rtex.rubyforge.org"
-  p.include_rakefile = true
-  p.development_dependencies = %w(Shoulda echoe)
-  p.rcov_options = '--exclude gems --exclude version.rb --sort coverage --text-summary --html -o coverage'
-  p.ignore_pattern = /^(pkg|doc|site)|\.svn|CVS|\.bzr|\.DS|\.git/
-  p.rubygems_version = nil
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "rtex"
+    gem.summary = "Build PDFs from Ruby with LaTeX"
+    gem.description = "Build PDFs from Ruby with LaTeX (with commandline and Rack support)"
+    gem.email = "bruce@codefluency.com"
+    gem.homepage = "http://github.com/bruce/rtex"
+    gem.authors = ['Bruce Williams', 'Wiebe Cazemier']
+    gem.add_development_dependency "shoulda"
+    gem.add_development_dependency "flexmock"
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-task :coverage do
-  system "open coverage/index.html" if PLATFORM['darwin']
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
+
+begin
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+  end
+rescue LoadError
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+  end
+end
+
+task :test => :check_dependencies
+
+task :default => :test
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "rtex #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end

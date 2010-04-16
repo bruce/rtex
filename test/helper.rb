@@ -1,14 +1,9 @@
 require 'test/unit'
 
-require 'rubygems'
-begin
-  require 'shoulda'
-  require 'flexmock/test_unit'
-rescue LoadError
-  abort "the `Shoulda' and `flexmock' gems are required for testing"
-end
+require 'shoulda'
+require 'flexmock/test_unit'
 
-require File.dirname(__FILE__) << '/../lib/rtex'
+require 'rtex'
 
 class Test::Unit::TestCase
   

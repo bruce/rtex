@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) << '/test_helper'
+require 'helper'
 
 class TempdirTest < Test::Unit::TestCase
 
@@ -42,11 +42,12 @@ class TempdirTest < Test::Unit::TestCase
     end
   
     should "return the result of the last statment if not automatically removing the directory" do
-      tempdir = nil # to capture value
+      td = nil # to capture value
       result = RTeX::Tempdir.open do |tempdir|
+        td = tempdir
         :last
       end
-      tempdir.remove!
+      td.remove!
       assert_equal :last, :last
     end
   

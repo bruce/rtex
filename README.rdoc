@@ -1,3 +1,5 @@
+(Please note that this project is no longer maintained at http://github.com/bruce/rtex.  Please use/maintain one of the forks!)
+
 = RTeX: TeX/PDF Generation for Ruby
 
 Project homepage (FAQ, manual, documentation, contact info): http://rtex.rubyforge.org

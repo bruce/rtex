@@ -25,6 +25,8 @@ module RTeX
         :preprocessor => 'latex',
         :preprocess => false,
         :processor => 'pdflatex',
+        :postprocessor => 'dvipdfmx',
+        :postprocess => false,
         # 
         :shell_redirect => nil,
         # Temporary Directory
@@ -83,6 +85,10 @@ module RTeX
       @preprocessor ||= check_path_for @options[:preprocessor]
     end
     
+    def postprocessor #:nodoc:
+      @postprocessor ||= check_path_for @options[:postprocessor]
+    end
+    
     def system_path #:nodoc:
       ENV['PATH']
     end
@@ -106,6 +112,7 @@ module RTeX
         if generating?
           preprocess! if preprocessing?
           process!
+          postprocess! if postprocessing?
           verify!
         end
         if file_handler
@@ -128,12 +135,26 @@ module RTeX
       end
     end
     
+    def postprocess!
+      unless `#{postprocessor} #{dvi_file} #{@options[:shell_redirect]}`
+        raise GenerationError, "Could not postprocess using #{postprocessor}"      
+      end
+    end
+    
     def preprocessing?
       @options[:preprocess]
     end
         
+    def postprocessing?
+      @options[:postprocess]
+    end
+        
     def source_file
       @source_file ||= file(:tex)
+    end
+    
+    def dvi_file
+      @dvi_file ||= file(:dvi)
     end
     
     def log_file

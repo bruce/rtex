@@ -42,8 +42,7 @@ module RTeX
                 :disposition => (options[:disposition] rescue nil) || 'inline',
                 :url_based_filename => true,
                 :filename => (options[:filename] rescue nil),
-                :type => "application/pdf",
-                :length => File.size(serve_file.path)
+                :type => "application/pdf"
               serve_file.close
             end
           else

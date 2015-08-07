@@ -31,7 +31,7 @@ module RTeX
         end
         
         def render_with_rtex(options=nil, *args, &block)
-          result = render_without_rtex(options, *args, &block)
+          result = render_without_rtex(options, *args, &block)[0]
           if result.is_a?(String) && Thread.current[:_rendering_rtex]
             Thread.current[:_rendering_rtex] = false
             options ||= {}

@@ -31,7 +31,7 @@ module RTeX
         end
         
         def render_with_rtex(options=nil, *args, &block)
-          result = render_without_rtex(options, *args, &block)
+          result = render_without_rtex(options, *args, &block)[0]
           if result.is_a?(String) && Thread.current[:_rendering_rtex]
             Thread.current[:_rendering_rtex] = false
             options ||= {}
@@ -42,8 +42,7 @@ module RTeX
                 :disposition => (options[:disposition] rescue nil) || 'inline',
                 :url_based_filename => true,
                 :filename => (options[:filename] rescue nil),
-                :type => "application/pdf",
-                :length => File.size(serve_file.path)
+                :type => "application/pdf"
               serve_file.close
             end
           else
